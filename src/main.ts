@@ -1,17 +1,11 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import getJoke from './getJokes'
 
 async function run(): Promise<void> {
   try {
-    console.log('heyyy ****')
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const joke: string = await getJoke()
+    // eslint-disable-next-line no-console
+    console.log(joke)
   } catch (error) {
     core.setFailed(error.message)
   }
